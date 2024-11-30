@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root123",
+    "database": "TeacherForum",
+    "host": "localhost",
+    "dialect": "mssql"
+  },
+  "test": {
+    "username": "root",
+    "password": "root123",
+    "database": "TeacherForum",
+    "host": "localhost",
+    "dialect": "mssql"
+  },
+  "production": {
+    "username": "root",
+    "password": "root123",
+    "database": "TeacherForum",
+    "host": "localhost",
+    "dialect": "mssql"
+  }
+}

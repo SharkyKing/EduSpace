@@ -1,0 +1,8 @@
+.sicon {
+    width: 24px;
+    height: 24px;
+}
+
+.sicon:hover{
+    cursor: pointer;
+}

@@ -1,0 +1,15 @@
+.sbutton {
+    background-color: var(--color2);
+    color: var(--color1);
+    border-radius: 0.5rem;
+    height: 2rem;
+    width: 20rem;
+    border: none;
+    transition: 0.2s;
+    user-select: none;
+}
+
+.sbutton:hover {
+    background-color: var(--color4);
+    cursor: pointer;
+}

@@ -1,0 +1,220 @@
+.forum-filter{
+    background-color: var(--color1);
+    color: var(--color2);
+    width: 10rem;
+    height: fit-content;
+    position: fixed;
+    top: 4rem;
+    left: 1rem;
+    z-index: 10;
+    border-radius: 0.5rem;
+    transition: 0.3s;
+}
+
+.forum-filter.filter-close{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.forum-filter.filter-close:hover{
+    background-color: var(--color2);
+    color: var(--color1);
+    cursor: pointer;
+}
+
+.forum-filter.filter-open{
+    width: calc(100vw - 5rem);
+    height: fit-content;
+    padding-inline: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.forum-filter.filter-open h3{
+    background-color: var(--color2);
+    color: var(--color1);
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition:0.3s;
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.forum-filter.filter-open h3:hover{
+    background-color: var(--color1);
+    color: var(--color2);
+    cursor: pointer;
+}
+
+.filter-close-btn{
+    background-color: var(--color1) !important;
+    color: var(--color2) !important;
+}
+
+.filter-close-btn:hover {
+    background-color: var(--color2) !important;
+    color: var(--color1) !important;
+}
+
+.filter-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+
+
+
+.filter-filters{
+    margin-bottom: 0.5rem;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.filter-unit{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.filter-unit h4 {
+    margin: 0.5rem;
+    background-color: var(--color2);
+    color: var(--color1);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.filter-options{
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.filter-options p{
+    margin: 0.25rem;
+    padding: 0.5rem;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+}
+
+.filter-options p:hover {
+    background-color: var(--color2);
+    color: var(--color1);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    .forum-filter {
+        width: 5rem;
+        top: calc(100vh - 5rem);
+    }
+
+    .forum-filter.filter-close:hover {
+        background-color: var(--color2);
+        color: var(--color1);
+        cursor: pointer;
+    }
+
+    .forum-filter.filter-open {
+        top: 4rem;
+        width: calc(100vw - 4rem);
+        height: calc(100vh - 5rem);
+        padding-inline: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .forum-filter.filter-open h3 {
+        background-color: var(--color2);
+        color: var(--color1);
+        width: fit-content;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: 0.3s;
+        width: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .forum-filter.filter-open h3:hover {
+        background-color: var(--color1);
+        color: var(--color2);
+        cursor: pointer;
+    }
+
+    .filter-close-btn {
+        background-color: var(--color1) !important;
+        color: var(--color2) !important;
+    }
+
+    .filter-close-btn:hover {
+        background-color: var(--color2) !important;
+        color: var(--color1) !important;
+    }
+
+    .filter-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .filter-filters {
+        height: fit-content;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .filter-unit {
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .filter-unit h4 {
+        margin: 0.5rem;
+        background-color: var(--color2);
+        color: var(--color1);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .filter-options {
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .filter-options p {
+        margin: 0.25rem;
+        padding: 0.5rem;
+        width: 6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.5rem;
+    }
+}

@@ -1,0 +1,15 @@
+.stextarea {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color1);
+    min-height: 5rem;
+    height: fit-content;
+    resize: none;
+    background-color: var(--color4);
+    padding-left: 1rem;
+}
+
+.stextarea:focus {
+    background-color: var(--color3);
+    outline: none;
+}

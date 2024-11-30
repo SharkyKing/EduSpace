@@ -1,0 +1,171 @@
+.signin-form {
+    background-color: var(--color1);
+    height: 80vh;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    border-radius: 0.5rem;
+}
+
+.signin-form h1 {
+    width: 80%;
+    color: var(--color2);
+    margin: 0;
+}
+
+.signin-form-sub {
+    gap: 2rem;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-form-sub .sinput {
+    width: 30%;
+    height: 100%;
+    font-size: 12pt;
+}
+
+.signin-form-sub-button {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: 0.3s;
+}
+
+.signin-form-sub-button .sbutton {
+    width: 50%;
+    height: 100%;
+    font-size: 18pt;
+}
+
+@keyframes buttonClickEffect {
+    0% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translateX(-2000px);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateX(4000px);
+        opacity: 0;
+    }
+
+    75% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes buttonClickEffectBack {
+    0% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translateX(2000px);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateX(-4000px);
+        opacity: 0;
+    }
+
+    75% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+/* Button class with animation */
+.button-click-effect {
+    animation: buttonClickEffect 0.5s ease-in-out;
+}
+
+.button-click-effect-back {
+    animation: buttonClickEffectBack 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 800px) {
+    .signin-form {
+        background-color: var(--color1);
+        height: 90vh;
+        width: 90vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .signin-form h1 {
+        width: 80%;
+        color: var(--color2);
+        margin: 0;
+        font-size: 16pt;
+    }
+
+    .signin-form-sub {
+        gap: 1rem;
+        width: 100%;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signin-form-sub .sinput {
+        width: 80%;
+        height: 100%;
+        font-size: 12pt;
+    }
+
+    .signin-form-sub-button {
+        width: 100%;
+        height: 8%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        transition: 0.3s;
+    }
+
+    .signin-form-sub-button .sbutton {
+        width: 50%;
+        height: 100%;
+        font-size: 12pt;
+    }
+
+    .signin-form-sub-backbtn {
+        width: 20% !important;
+    }
+}

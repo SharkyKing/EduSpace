@@ -1,0 +1,21 @@
+.sinput {
+    border-radius: 0.5rem;
+    border: none;
+    border-bottom: 1px solid var(--color1);
+    height: 2rem;
+    width: 20rem;
+    padding-left: 1rem;
+    background-color: var(--color4);
+}
+
+.sinput:focus {
+    border: none;
+    background-color: var(--color3);
+    outline: none;
+    border-bottom: 1px solid var(--color1);
+}
+
+.sinput.readOnlyInput{
+    background-color: var(--color1) !important;
+    color: var(--color2);
+}

@@ -1,0 +1,104 @@
+.admin-dashboard {
+    background-color: var(--color1);
+    height: calc(85vh - 4rem);
+    width: calc(95vw - 4rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0rem;
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+
+.admin-dashboard-single{
+    grid-template-columns: 1fr !important;
+}
+
+.admin-dashboard .admin-dashboard-button{
+    height: 100%;
+    width: 100%;
+    margin: 0px !important;
+    padding: 0px !important;
+    font-size: 3rem;
+    transition: 0s;
+}
+
+@keyframes button-inactive-opacityDown-effect {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.button-inactive-opacityDown{
+    animation: button-inactive-opacityDown-effect 0.500s ease-in-out;
+}
+
+.button-inactive-sizeZero{
+    display: none;
+}
+
+.button-active-sizeZero {
+    display: none;
+}
+
+@keyframes button-active-sizeDown-effect {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+.button-active-sizeDown{
+    animation: button-active-sizeDown-effect 0.5s ease-in-out;
+}
+
+@keyframes button-active-corner-effect {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.button-active-corner{
+    position: absolute;
+    height: fit-content !important;
+    width: fit-content !important;
+    font-size: 2rem !important;
+    animation: button-active-corner-effect 0.5s ease-in-out;
+}
+
+.admin-page-panel{
+    display: none;
+}
+
+@keyframes admin-page-panel-active-effect {
+    0% {
+        opacity: 0; width: 0;
+    }
+
+    100% {
+        opacity: 1;width: 100%;
+    }
+}
+
+.admin-page-panel-active{
+    display:flex;
+    width: calc(100% - 1rem);
+    height: calc(100% - 5rem);
+    border-radius: 0.5rem;
+    background-color: var(--color2);
+    animation: admin-page-panel-active-effect 0.75s ease-in-out;
+    margin-top: 4rem;
+    padding: 0.5rem;
+    overflow-y: auto;
+    overflow-x: auto;
+}

@@ -1,0 +1,183 @@
+.edit-table table {
+    border-collapse: collapse;
+    background-color: var(--color3);
+    border: 2px solid var(--color1);
+}
+
+.edit-table thead {
+    background-color: var(--color1);
+    color: var(--color2);
+    border: none;
+}
+
+.edit-table th {
+    padding: 0.5rem;
+    padding-inline: 2rem;
+    border-left: 1px solid var(--color2) !important;
+    align-items: end;
+    text-align: left;
+}
+
+.edit-table tr {
+    border: none;
+    border-bottom: 1px solid var(--color2);
+}
+
+.edit-table tbody tr:hover {
+    background-color: var(--color2);
+}
+
+.edit-table td {
+    border: none;
+    padding: 0.5rem;
+    padding-inline: 1rem;
+    width: fit-content;
+}
+
+@keyframes tableedit-form-effect {
+    0% {
+        top: -100%;
+    }
+
+    100% {
+        top: calc(50% - 40vh);
+    }
+}
+
+@keyframes tableedit-form-background-effect {
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 50%;
+    }
+}
+
+.tableedit-form {
+    position: absolute;
+    top: calc(50% - 40vh);
+    left: calc(50% - 40vw);
+    height: 80vh;
+    width: 80vw;
+    background-color: var(--color2);
+    z-index: 1100;
+    animation: tableedit-form-effect 0.3s ease-in-out;
+    border-radius: 0.5rem;
+    border: 2px solid var(--color1);
+    padding-top: 1rem;
+}
+
+.tableedit-form-background {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color1);
+    z-index: 1000;
+    opacity: 50%;
+    pointer-events: auto;
+    animation: tableedit-form-background-effect 0.3s ease-in-out;
+}
+
+.tableedit-form-header {
+    height: 2rem;
+    width: calc(100% - 2rem);
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.tableedit-form-header .sbutton {
+    font-size: 1rem;
+    width: fit-content;
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--color3);
+}
+
+.command-header {
+    height: 1rem;
+}
+
+.edit-table-command-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px !important;
+    margin: 0px !important;
+    padding-inline: 0.5rem !important;
+}
+
+@keyframes edit-table-command-icon-effect {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.edit-table-command-icon img:hover{
+    animation: edit-table-command-icon-effect 0.3s ease-in-out;
+}
+
+.tableedit-form-content{
+    width: calc(100% - 2rem);
+    height: calc(100% - 6rem);
+    background-color: var(--color1);
+    color: var(--color2);
+    border-radius: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.tableedit-form-footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 1rem;
+    padding-inline: 5rem;
+    height: fit-content;
+}
+
+.tableedit-form-footer .saveButtonTable{
+    height: 3rem !important;
+    width: 5rem !important;
+    padding-inline: 5rem !important;
+    font-size: 24pt !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--save);
+    background-color: var(--color2);
+}
+
+.tableedit-form-footer .saveButtonTable:hover{
+    background-color: var(--save);
+    color: var(--color2);
+}
+
+.tableedit-form-footer .deleteButtonTable {
+    height: 3rem !important;
+    width: 5rem !important;
+    padding-inline: 5rem !important;
+    font-size: 24pt !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--delete);
+    background-color: var(--color2);
+}
+
+.tableedit-form-footer .deleteButtonTable:hover {
+    background-color: var(--delete);
+    color: var(--color2);
+}
