@@ -61,7 +61,7 @@ Sukurti platformą, kurioje pradinio ugdymo pedagogai galėtų:
    - Dažnai naudojama autentifikacijai ir duomenų bazių apdorojimui.
 
 ---
-## OPEN API specifikacijos failas  [Swagger API Documentation](Swagger.txt)
+## OPEN API specifikacijos failas  [Swagger API Documentation](api-docs.json)
 ---
 ## Naudotojo sąsajos projektas
 ---
