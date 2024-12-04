@@ -1,40 +1,67 @@
-Pradinio ugdymo pedagogų pamokų integracijos idėjų forumas
-Sprendžiamo uždavinio aprašymas
-GitHub repozitorija
-https://github.com/SharkyKing/STPP_Projektas.git
-Sistemos paskirtis
-Pradinio ugdymo forumo sistemos paskirtis – dalintis informacija apie idėjas ar būdus, kaip integruoti atitinkamas veiklas įvairiose pamokose pradinio ugdymo klasėse. 
-Artimoje aplinkoje, pradinio ugdymo pedagogijos universitetiniuose mokymuose, pastebėta, kad yra skatinamas integracinis mokymas, kurio ankščiau taip neakcentavo nei vieni mokytojai, bei iš patirties to neesu pastebėjas. Taip pat pastebėta, kad tam tikrais atvėjais dažnai pritrūksta idėjų, o jų pasisemti aktyviai naudojamos tokios platformos, kaip „Facebook“. Joje kuriamos atitinkamos grupės ir ten dalinamasi informacija. 
-O ką jei egzistuotų toks puslapis, kuriame būtų galima bendrai dalintis visomis idėjomis tarp pradinio ugdymo pedogogų ir jis būtų pasiekiamas bendra nuoroda, nenaršant ir neieškant specifinių grupių? Kita iškylanti problema, tai ne visos tos grupės aktyvios. Kai kurios sukurtos, bet turi maža pasiekiamumą, bei narių skaičių. 
-Šia idėja, siekiama išspręsti šią problemą. Sukurti vieningą platformą. 
-Platformoje, pedagogai turėtų galimybė pagal atitinkamas kategorijas matyti kuo dalinasi kiti pedagogai. Šie galėtų taip pat dalintis savo idėjomis, kurios jų nuomone pasiteisina, parašyti skatinančias ar kritikuojančias nuomones apie kitų idėjas.  
- 
-Funkciniai reikalavimai
-Rolių aprašymai parašyti pagal paveldimumą. Sveičas -> Pedagogas -> Administratorius
-•	Svečio funkciniai reikalavimai
-o	Įrašų peržiūra
-o	Komentarų peržiūra
-o	Įrašų filtravimas pagal kategorijas, klases, dalykus
-o	Registracija įrašų skelbimui, komentarų rašymui
-•	Pedagogo (Tariamo dažno naudotojo) funkciniai reikalavimai
-o	Vieša informacija (Patirtis, Mokymosi įstaiga, Miestas)
-o	Registracijos patvirtinimas el. pašto metodu
-o	Slaptažodžio priminimo funkcija
-o	Įrašų CRUD operacijos
-o	Komentarų CRUD operacijos konkretiems įrašams
-o	Failų prisegimas prie įrašų
-o	Prisijungimas
-•	Administarorius
-o	Visų įrašų CRUD operacijos
-o	Visų komentarų CRUD operacijos
-o	Vartotojų blokavimas
-o	Turinio blokavimas
-Pasirinktų technologijų aprašymas
-1.	React
-React pasirinktas dėl daugybės šaltinių esančių internete, nesudėtinga rasti pagalbos. Turi komponentais grįsta dizainą, kas padeda nesunkiai pernaudoti pasikartojančius komponentus ir jų savybes.  Pasižymi efektyvumu bei našumu. 
-2.	REST API
-Šis naudoja http užklausas, kurios pagerina programavimo efektyvumą, bei išplečiamumą.  Nesudėtinga sąsaja su serveriu, lengvai aprašoma. 
-3.	Axios
-Palengvina HTTP užklausų kūrimo aprašymą. Naudojama asincroniniams HTTP kvietimams į REST. Automatiškai apdorojami JSON objektai. Lengvai aprašomos klaidų išimtys, bei turi papildomų savybių, pavyzdžiui tokių, kaip užklausos atšaukimas. 
-4.	Node.js
-Naudojama populiari javascript kalba.  Šis palaiko daugybę vartotojų lygiagrečių prisijungimų prie serverio. Dažnai naudojama autentifikacijos apdorojimui, duomenų bazės apdorojimui. 
+# Pradinio Ugdymo Pedagogų Pamokų Integracijos Idėjų Forumas
+
+## Sprendžiamo Uždavinio Aprašymas
+Ši sistema skirta padėti pradinio ugdymo pedagogams dalintis idėjomis ir metodais, kaip integruoti įvairias veiklas pamokose. Pastebėjus, kad dažnai pritrūksta idėjų ir jos ieškomos socialinėse platformose, sukuriama vieninga ir lengvai pasiekiama platforma, kuri:
+- Leidžia pedagogams bendrauti ir dalintis idėjomis.
+- Užtikrina, kad informacija būtų lengvai prieinama ir sisteminga.
+- Sprendžia neaktyvių ar mažai pasiekiamų grupių problemą.
+
+### Sistemos Tikslas
+Sukurti platformą, kurioje pradinio ugdymo pedagogai galėtų:
+- Rasti ir dalintis idėjomis pagal kategorijas.
+- Diskutuoti ir rašyti atsiliepimus apie pateiktas idėjas.
+- Bendradarbiauti siekiant geresnės pamokų kokybės.
+
+## GitHub Repozitorija
+[https://github.com/SharkyKing/STPP_Projektas.git](https://github.com/SharkyKing/STPP_Projektas.git)
+
+---
+
+## Funkciniai Reikalavimai
+
+### Rolių Aprašymai (Paveldimumo principas: Sveičias → Pedagogas → Administratorius)
+
+#### **Svečias**
+- Peržiūrėti įrašus ir komentarus.
+- Filtruoti įrašus pagal kategorijas, klases, dalykus.
+- Registruotis, norint kurti įrašus ir rašyti komentarus.
+
+#### **Pedagogas**
+- Viešai pateikti informaciją (patirtis, mokymosi įstaiga, miestas).
+- Registracija patvirtinama el. paštu.
+- Slaptažodžio priminimo funkcija.
+- Atlikti CRUD operacijas (sukurti, skaityti, redaguoti, ištrinti) įrašams ir komentarams.
+- Prisegti failus prie įrašų.
+- Prisijungti prie sistemos.
+
+#### **Administratorius**
+- Atlikti CRUD operacijas visiems įrašams ir komentarams.
+- Blokuoti vartotojus.
+- Blokuoti turinį.
+
+---
+
+## Pasirinktų Technologijų Aprašymas
+
+1. **React**
+   - Komponentais grįsta dizaino struktūra leidžia pernaudoti kodą ir kurti našias vartotojo sąsajas.
+   - Turi plačią bendruomenę ir gausybę išteklių, kurie padeda greitai rasti sprendimus.
+
+2. **REST API**
+   - Naudojamas HTTP užklausoms, užtikrinant greitą sąsają su serveriu.
+   - Lengvai išplečiama struktūra, tinkanti didesnio masto projektams.
+
+3. **Axios**
+   - Palengvina asinchroninių HTTP užklausų kūrimą.
+   - Automatiškai apdoroja JSON objektus.
+   - Leidžia lengvai aprašyti klaidų išimtis ir teikia papildomas funkcijas, pvz., užklausų atšaukimą.
+
+4. **Node.js**
+   - Populiari „JavaScript“ platforma, palaikanti lygiagrečius prisijungimus.
+   - Dažnai naudojama autentifikacijai ir duomenų bazių apdorojimui.
+
+---
+
+## Naudotojo sąsajos projektas
+
+
