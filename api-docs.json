@@ -1,1 +1,1777 @@
-{"openapi":"3.0.0","info":{"title":"Teacher forum","version":"1.0.0","description":"API Information"},"servers":[{"url":"http://localhost:3002"}],"components":{"securitySchemes":{"bearerAuth":{"type":"http","scheme":"bearer","bearerFormat":"JWT"}}},"security":[{"bearerAuth":[]}],"paths":{"/api/account/login":{"post":{"summary":"Log in an existing user","tags":["Account"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"email":{"type":"string","format":"email"},"password":{"type":"string"}},"required":["email","password"]}}}},"responses":{"200":{"description":"User logged in successfully"},"401":{"description":"Invalid password"},"404":{"description":"User not found"},"500":{"description":"Internal Server Error"}}}},"/api/account/logout":{"post":{"summary":"Log out the user","tags":["Account"],"security":[{"bearerAuth":[]}],"responses":{"200":{"description":"Logged out successfully"}}}},"/api/account/role":{"get":{"summary":"Get the user's role ID from the decoded JWT token","tags":["Roles"],"security":[{"bearerAuth":[]}],"responses":{"200":{"description":"The user's role ID","content":{"application/json":{"schema":{"type":"object","properties":{"roleId":{"type":"integer","description":"The role ID of the user extracted from the token"}}}}}},"204":{"description":"No content, if roleId is not available in the token"},"401":{"description":"Unauthorized, if the user is not authenticated or no valid token is provided"},"500":{"description":"Internal Server Error"}}}},"/api/auth":{"get":{"summary":"Check if the user is authenticated","tags":["Auth"],"security":[{"bearerAuth":[]}],"responses":{"200":{"description":"User is authenticated"},"401":{"description":"Unauthorized"}}}},"/api/auth/refresh-token":{"post":{"summary":"Refresh the access token using a refresh token","tags":["Auth"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"refreshToken":{"type":"string"}},"required":["refreshToken"]}}}},"responses":{"200":{"description":"Access token refreshed successfully","content":{"application/json":{"schema":{"type":"object","properties":{"accessToken":{"type":"string"}}}}}},"401":{"description":"Refresh token required"},"403":{"description":"Invalid or expired refresh token"},"500":{"description":"Internal Server Error"}}}},"/api/roles":{"get":{"summary":"Get all roles","tags":["Roles"],"responses":{"200":{"description":"A list of roles","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer"},"RoleName":{"type":"string"}}}}}}},"204":{"description":"No roles found"},"500":{"description":"Internal Server Error"}}},"post":{"summary":"Create a new role","tags":["Roles"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"RoleName":{"type":"string"}},"required":["RoleName"]}}}},"responses":{"201":{"description":"Role created successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"RoleName":{"type":"string"}}}}}},"400":{"description":"Role name is required"},"500":{"description":"Internal Server Error"}}}},"/api/roles/{id}":{"patch":{"summary":"Update a role by ID","tags":["Roles"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The role ID"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"RoleName":{"type":"string"}}}}}},"responses":{"200":{"description":"Role updated successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"RoleName":{"type":"string"}}}}}},"400":{"description":"Role name is required for the update"},"404":{"description":"Role not found"},"500":{"description":"Internal Server Error"}}},"delete":{"summary":"Delete a role by ID","tags":["Roles"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The role ID"}],"responses":{"200":{"description":"Role deleted successfully"},"404":{"description":"Role not found"},"500":{"description":"Internal Server Error"}}}},"/api/categories/{id}":{"patch":{"summary":"Update a category by ID","tags":["Categories"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The category ID"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"CategoryName":{"type":"string"}},"required":["CategoryName"]}}}},"security":[{"bearerAuth":[]}],"responses":{"200":{"description":"Category updated successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"CategoryName":{"type":"string"}}}}}},"400":{"description":"Invalid input - CategoryName must be a non-empty string"},"404":{"description":"Category not found"},"500":{"description":"Internal Server Error"}}},"delete":{"summary":"Delete a category by ID","tags":["Categories"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The category ID"}],"responses":{"200":{"description":"Category deleted successfully"},"404":{"description":"Category not found"},"500":{"description":"Internal Server Error"}}},"get":{"summary":"Get a specific category by ID","tags":["Categories"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The category ID"}],"responses":{"200":{"description":"Category retrieved successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"CategoryName":{"type":"string"}}}}}},"404":{"description":"Category not found"},"500":{"description":"Internal Server Error"}}}},"/api/categories":{"post":{"summary":"Create a new category","tags":["Categories"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"CategoryName":{"type":"string"}},"required":["CategoryName"]}}}},"responses":{"201":{"description":"Category created successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"CategoryName":{"type":"string"}}}}}},"400":{"description":"Category name is required and must be a non-empty string"},"500":{"description":"Internal Server Error"}}},"get":{"summary":"Get all categories","tags":["Categories"],"responses":{"200":{"description":"A list of categories retrieved successfully","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer"},"CategoryName":{"type":"string"}}}}}}},"500":{"description":"Internal Server Error"}}}},"/api/grades":{"post":{"summary":"Create a new grade","tags":["Grades"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"GradeName":{"type":"string"}},"required":["GradeName"]}}}},"responses":{"201":{"description":"Grade created successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"GradeName":{"type":"string"}}}}}},"400":{"description":"Grade name is required"},"500":{"description":"Internal Server Error"}}},"get":{"summary":"Get all grades","tags":["Grades"],"responses":{"200":{"description":"A list of grades","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer"},"GradeName":{"type":"string"}}}}}}},"500":{"description":"Internal Server Error"}}}},"/api/grades/{id}":{"patch":{"summary":"Update a grade by ID","tags":["Grades"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The grade ID"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"GradeName":{"type":"string"}}}}}},"responses":{"200":{"description":"Grade updated successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"GradeName":{"type":"string"}}}}}},"400":{"description":"GradeName is required for the update"},"404":{"description":"Grade not found"},"500":{"description":"Internal Server Error"}}},"delete":{"summary":"Delete a grade by ID","tags":["Grades"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The grade ID"}],"responses":{"200":{"description":"Grade deleted successfully"},"404":{"description":"Grade not found"},"500":{"description":"Internal Server Error"}}},"get":{"summary":"Get a specific grade by ID","tags":["Grades"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The grade ID"}],"responses":{"200":{"description":"Grade retrieved successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"GradeName":{"type":"string"}}}}}},"404":{"description":"Grade not found"},"500":{"description":"Internal Server Error"}}}},"/api/threads/{threadId}/comment":{"post":{"summary":"Create a new comment","tags":["Comments"],"parameters":[{"in":"path","name":"threadId","required":true,"schema":{"type":"integer"},"description":"The ID of the thread where the comment will be posted"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"CommentText":{"type":"string"}},"required":["CommentText"]}}}},"responses":{"201":{"description":"Comment created successfully","content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string"},"comment":{"type":"object","properties":{"id":{"type":"integer"},"CommentText":{"type":"string"},"ThreadID":{"type":"integer"},"UserID":{"type":"integer"},"RelevancyCount":{"type":"integer"}}}}}}}},"400":{"description":"CommentText is required and must be a non-empty string."},"500":{"description":"An error occurred while creating the comment"}}},"get":{"summary":"Get all comments for a specific thread","tags":["Comments"],"parameters":[{"in":"path","name":"threadId","required":true,"schema":{"type":"integer"},"description":"The ID of the thread to fetch comments for"}],"responses":{"200":{"description":"A list of comments for the specified thread","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"CommentText":{"type":"string"},"ThreadID":{"type":"integer"},"UserID":{"type":"integer"},"RelevancyCount":{"type":"integer"}}}}}}},"400":{"description":"Invalid threadId"},"500":{"description":"An error occurred while fetching comments"}}}},"/api/threads/{threadId}/comment/{commentId}":{"patch":{"summary":"Update an existing comment","tags":["Comments"],"parameters":[{"in":"path","name":"threadId","required":true,"schema":{"type":"integer"},"description":"The thread ID that the comment belongs to"},{"in":"path","name":"commentId","required":true,"schema":{"type":"integer"},"description":"The comment ID"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"CommentText":{"type":"string"}}}}}},"responses":{"200":{"description":"Comment updated successfully","content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string"},"comment":{"type":"object","properties":{"id":{"type":"integer"},"CommentText":{"type":"string"},"ThreadID":{"type":"integer"},"UserID":{"type":"integer"},"RelevancyCount":{"type":"integer"}}}}}}}},"403":{"description":"You do not have permission to modify this comment."},"404":{"description":"Comment not found or does not belong to the specified thread"},"500":{"description":"An error occurred while updating the comment"}}},"delete":{"summary":"Delete a comment by ID","tags":["Comments"],"parameters":[{"in":"path","name":"threadId","required":true,"schema":{"type":"integer"},"description":"The thread ID that the comment belongs to"},{"in":"path","name":"commentId","required":true,"schema":{"type":"integer"},"description":"The comment ID"}],"responses":{"200":{"description":"Comment deleted successfully"},"403":{"description":"You do not have permission to delete this comment."},"404":{"description":"Comment not found or does not belong to the specified thread"},"500":{"description":"An error occurred while deleting the comment"}}}},"/api/threads/comment/{commentId}":{"get":{"summary":"Get a specific comment by ID","tags":["Comments"],"parameters":[{"in":"path","name":"commentId","required":true,"schema":{"type":"integer"},"description":"The ID of the comment to fetch"}],"responses":{"200":{"description":"The specific comment","content":{"application/json":{"schema":{"type":"object","properties":{"CommentText":{"type":"string"},"ThreadID":{"type":"integer"},"UserID":{"type":"integer"},"RelevancyCount":{"type":"integer"}}}}}},"404":{"description":"Comment not found"},"500":{"description":"An error occurred while fetching the comment"}}}},"/api/threads":{"get":{"summary":"Get all threads","tags":["Threads"],"parameters":[{"in":"query","name":"category","required":false,"schema":{"type":"integer"},"description":"Filter threads by category ID"},{"in":"query","name":"grade","required":false,"schema":{"type":"integer"},"description":"Filter threads by grade ID"},{"in":"query","name":"search","required":false,"schema":{"type":"string"},"description":"Search for threads by title or content"}],"responses":{"200":{"description":"A list of threads retrieved successfully","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer"},"ThreadName":{"type":"string"},"ThreadText":{"type":"string"},"createdAt":{"type":"string","format":"date-time"}}}}}}},"500":{"description":"Internal Server Error"}}},"post":{"summary":"Create a new thread","tags":["Threads"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"ThreadName":{"type":"string"},"ThreadText":{"type":"string"},"CategoryID":{"type":"integer"},"GradeID":{"type":"integer"}},"required":["ThreadName","ThreadText","CategoryID","GradeID"]}}}},"responses":{"201":{"description":"Thread created successfully"},"400":{"description":"Missing required fields"},"500":{"description":"Internal Server Error"}}}},"/api/threads/{threadId}/vote":{"post":{"summary":"Vote on a thread","tags":["Threads"],"parameters":[{"in":"path","name":"threadId","required":true,"schema":{"type":"integer"},"description":"The thread ID"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"vote":{"type":"integer","enum":[1,-1]}}}}}},"responses":{"200":{"description":"Vote recorded successfully"},"404":{"description":"Thread not found"},"500":{"description":"Internal Server Error"}}}},"/api/threads/{id}":{"delete":{"summary":"Delete a thread by ID","tags":["Threads"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The thread ID"}],"responses":{"200":{"description":"Thread deleted successfully"},"404":{"description":"Thread not found or user not authorized"},"500":{"description":"Internal Server Error"}}},"patch":{"summary":"Update a thread by ID","tags":["Threads"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The thread ID"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"ThreadName":{"type":"string"},"ThreadText":{"type":"string"},"CategoryID":{"type":"integer"},"GradeID":{"type":"integer"}}}}}},"responses":{"200":{"description":"Thread updated successfully"},"400":{"description":"Invalid input or missing required fields"},"404":{"description":"Thread not found or user not authorized"},"500":{"description":"Internal Server Error"}}},"get":{"summary":"Get a specific thread by ID","tags":["Threads"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The thread ID"}],"responses":{"200":{"description":"The requested thread retrieved successfully","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer"},"ThreadName":{"type":"string"},"ThreadText":{"type":"string"},"CategoryID":{"type":"integer"},"GradeID":{"type":"integer"},"UserID":{"type":"integer"},"createdAt":{"type":"string","format":"date-time"}}}}}},"404":{"description":"Thread not found"},"500":{"description":"Internal Server Error"}}}},"/api/user/{id}":{"get":{"summary":"Get user details by ID","tags":["User"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The user ID"}],"responses":{"200":{"description":"User details retrieved successfully","content":{"application/json":{"schema":{"type":"object","properties":{"FirstName":{"type":"string"},"LastName":{"type":"string"},"Email":{"type":"string","format":"email"},"Username":{"type":"string"},"RoleName":{"type":"string"}}}}}},"404":{"description":"User not found"},"500":{"description":"Internal Server Error"}}},"patch":{"summary":"Update user details by ID","tags":["User"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The user ID"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"FirstName":{"type":"string"},"LastName":{"type":"string"},"Email":{"type":"string","format":"email"},"Username":{"type":"string"}}}}}},"responses":{"200":{"description":"User updated successfully"},"400":{"description":"Invalid input data"},"404":{"description":"User not found"},"500":{"description":"Internal Server Error"}}},"delete":{"summary":"Delete a user by ID","tags":["User"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The user ID"}],"responses":{"200":{"description":"User deleted successfully"},"404":{"description":"User not found"},"500":{"description":"Internal Server Error"}}}},"/api/user":{"get":{"summary":"Get all users except the authenticated user","tags":["User"],"responses":{"200":{"description":"A list of users retrieved successfully","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"FirstName":{"type":"string"},"LastName":{"type":"string"},"Email":{"type":"string","format":"email"},"Username":{"type":"string"},"RoleName":{"type":"string"}}}}}}},"500":{"description":"Internal Server Error"}}},"post":{"summary":"Register a new user","tags":["User"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"FirstName":{"type":"string"},"LastName":{"type":"string"},"Email":{"type":"string","format":"email"},"Password":{"type":"string"},"Username":{"type":"string"}},"required":["FirstName","LastName","Email","Password","Username"]}}}},"responses":{"201":{"description":"User created successfully"},"400":{"description":"Error in user registration"},"500":{"description":"Internal Server Error"}}}},"/api/user/{userId}/threads":{"get":{"summary":"Get all threads created by the user","tags":["User"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"integer"},"description":"The user ID"}],"responses":{"200":{"description":"A list of threads retrieved successfully","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer"},"title":{"type":"string"},"content":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}}}}}}},"404":{"description":"User not found"},"500":{"description":"Internal Server Error"}}}}},"tags":[{"name":"Account","description":"User management"},{"name":"Auth","description":"Auth management"},{"name":"Roles","description":"Role management"},{"name":"Categories","description":"Category management"},{"name":"Grades","description":"Grade management"},{"name":"Comments","description":"Comment management"},{"name":"Threads","description":"Thread management"},{"name":"User","description":"Account management"}]}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Teacher forum",
+    "version": "1.0.0",
+    "description": "API Information"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/account/login": {
+      "post": {
+        "summary": "Log in an existing user",
+        "tags": [
+          "Account"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "401": {
+            "description": "Invalid password"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/account/logout": {
+      "post": {
+        "summary": "Log out the user",
+        "tags": [
+          "Account"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logged out successfully"
+          }
+        }
+      }
+    },
+    "/api/account/role": {
+      "get": {
+        "summary": "Get the user's role ID from the decoded JWT token",
+        "tags": [
+          "Roles"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user's role ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "roleId": {
+                      "type": "integer",
+                      "description": "The role ID of the user extracted from the token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content, if roleId is not available in the token"
+          },
+          "401": {
+            "description": "Unauthorized, if the user is not authenticated or no valid token is provided"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/auth": {
+      "get": {
+        "summary": "Check if the user is authenticated",
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is authenticated"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/auth/refresh-token": {
+      "post": {
+        "summary": "Refresh the access token using a refresh token",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refreshToken": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "refreshToken"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Access token refreshed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Refresh token required"
+          },
+          "403": {
+            "description": "Invalid or expired refresh token"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/roles": {
+      "get": {
+        "summary": "Get all roles",
+        "tags": [
+          "Roles"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of roles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "RoleName": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No roles found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new role",
+        "tags": [
+          "Roles"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "RoleName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "RoleName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Role created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "RoleName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Role name is required"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/roles/{id}": {
+      "patch": {
+        "summary": "Update a role by ID",
+        "tags": [
+          "Roles"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The role ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "RoleName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Role updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "RoleName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Role name is required for the update"
+          },
+          "404": {
+            "description": "Role not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a role by ID",
+        "tags": [
+          "Roles"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The role ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role deleted successfully"
+          },
+          "404": {
+            "description": "Role not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/categories/{id}": {
+      "patch": {
+        "summary": "Update a category by ID",
+        "tags": [
+          "Categories"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The category ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CategoryName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "CategoryName"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "CategoryName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input - CategoryName must be a non-empty string"
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a category by ID",
+        "tags": [
+          "Categories"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The category ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a specific category by ID",
+        "tags": [
+          "Categories"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The category ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "CategoryName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/categories": {
+      "post": {
+        "summary": "Create a new category",
+        "tags": [
+          "Categories"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CategoryName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "CategoryName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "CategoryName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Category name is required and must be a non-empty string"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all categories",
+        "tags": [
+          "Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of categories retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "CategoryName": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/grades": {
+      "post": {
+        "summary": "Create a new grade",
+        "tags": [
+          "Grades"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "GradeName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "GradeName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Grade created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "GradeName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Grade name is required"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all grades",
+        "tags": [
+          "Grades"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of grades",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "GradeName": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/grades/{id}": {
+      "patch": {
+        "summary": "Update a grade by ID",
+        "tags": [
+          "Grades"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The grade ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "GradeName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Grade updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "GradeName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "GradeName is required for the update"
+          },
+          "404": {
+            "description": "Grade not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a grade by ID",
+        "tags": [
+          "Grades"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The grade ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grade deleted successfully"
+          },
+          "404": {
+            "description": "Grade not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a specific grade by ID",
+        "tags": [
+          "Grades"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The grade ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grade retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "GradeName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Grade not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/threads/{threadId}/comment": {
+      "post": {
+        "summary": "Create a new comment",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the thread where the comment will be posted"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CommentText": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "CommentText"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Comment created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "comment": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "CommentText": {
+                          "type": "string"
+                        },
+                        "ThreadID": {
+                          "type": "integer"
+                        },
+                        "UserID": {
+                          "type": "integer"
+                        },
+                        "RelevancyCount": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "CommentText is required and must be a non-empty string."
+          },
+          "500": {
+            "description": "An error occurred while creating the comment"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all comments for a specific thread",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the thread to fetch comments for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of comments for the specified thread",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "CommentText": {
+                        "type": "string"
+                      },
+                      "ThreadID": {
+                        "type": "integer"
+                      },
+                      "UserID": {
+                        "type": "integer"
+                      },
+                      "RelevancyCount": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid threadId"
+          },
+          "500": {
+            "description": "An error occurred while fetching comments"
+          }
+        }
+      }
+    },
+    "/api/threads/{threadId}/comment/{commentId}": {
+      "patch": {
+        "summary": "Update an existing comment",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The thread ID that the comment belongs to"
+          },
+          {
+            "in": "path",
+            "name": "commentId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The comment ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CommentText": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "comment": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "CommentText": {
+                          "type": "string"
+                        },
+                        "ThreadID": {
+                          "type": "integer"
+                        },
+                        "UserID": {
+                          "type": "integer"
+                        },
+                        "RelevancyCount": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to modify this comment."
+          },
+          "404": {
+            "description": "Comment not found or does not belong to the specified thread"
+          },
+          "500": {
+            "description": "An error occurred while updating the comment"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a comment by ID",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The thread ID that the comment belongs to"
+          },
+          {
+            "in": "path",
+            "name": "commentId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The comment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment deleted successfully"
+          },
+          "403": {
+            "description": "You do not have permission to delete this comment."
+          },
+          "404": {
+            "description": "Comment not found or does not belong to the specified thread"
+          },
+          "500": {
+            "description": "An error occurred while deleting the comment"
+          }
+        }
+      }
+    },
+    "/api/threads/comment/{commentId}": {
+      "get": {
+        "summary": "Get a specific comment by ID",
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "commentId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the comment to fetch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The specific comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "CommentText": {
+                      "type": "string"
+                    },
+                    "ThreadID": {
+                      "type": "integer"
+                    },
+                    "UserID": {
+                      "type": "integer"
+                    },
+                    "RelevancyCount": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Comment not found"
+          },
+          "500": {
+            "description": "An error occurred while fetching the comment"
+          }
+        }
+      }
+    },
+    "/api/threads": {
+      "get": {
+        "summary": "Get all threads",
+        "tags": [
+          "Threads"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Filter threads by category ID"
+          },
+          {
+            "in": "query",
+            "name": "grade",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Filter threads by grade ID"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search for threads by title or content"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of threads retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "ThreadName": {
+                        "type": "string"
+                      },
+                      "ThreadText": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new thread",
+        "tags": [
+          "Threads"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ThreadName": {
+                    "type": "string"
+                  },
+                  "ThreadText": {
+                    "type": "string"
+                  },
+                  "CategoryID": {
+                    "type": "integer"
+                  },
+                  "GradeID": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "ThreadName",
+                  "ThreadText",
+                  "CategoryID",
+                  "GradeID"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Thread created successfully"
+          },
+          "400": {
+            "description": "Missing required fields"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/threads/{threadId}/vote": {
+      "post": {
+        "summary": "Vote on a thread",
+        "tags": [
+          "Threads"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "threadId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The thread ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "vote": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      -1
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Vote recorded successfully"
+          },
+          "404": {
+            "description": "Thread not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/threads/{id}": {
+      "delete": {
+        "summary": "Delete a thread by ID",
+        "tags": [
+          "Threads"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The thread ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thread deleted successfully"
+          },
+          "404": {
+            "description": "Thread not found or user not authorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a thread by ID",
+        "tags": [
+          "Threads"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The thread ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ThreadName": {
+                    "type": "string"
+                  },
+                  "ThreadText": {
+                    "type": "string"
+                  },
+                  "CategoryID": {
+                    "type": "integer"
+                  },
+                  "GradeID": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Thread updated successfully"
+          },
+          "400": {
+            "description": "Invalid input or missing required fields"
+          },
+          "404": {
+            "description": "Thread not found or user not authorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a specific thread by ID",
+        "tags": [
+          "Threads"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The thread ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested thread retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "ThreadName": {
+                      "type": "string"
+                    },
+                    "ThreadText": {
+                      "type": "string"
+                    },
+                    "CategoryID": {
+                      "type": "integer"
+                    },
+                    "GradeID": {
+                      "type": "integer"
+                    },
+                    "UserID": {
+                      "type": "integer"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Thread not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/{id}": {
+      "get": {
+        "summary": "Get user details by ID",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "FirstName": {
+                      "type": "string"
+                    },
+                    "LastName": {
+                      "type": "string"
+                    },
+                    "Email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "Username": {
+                      "type": "string"
+                    },
+                    "RoleName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update user details by ID",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The user ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "FirstName": {
+                    "type": "string"
+                  },
+                  "LastName": {
+                    "type": "string"
+                  },
+                  "Email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "Username": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user by ID",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "get": {
+        "summary": "Get all users except the authenticated user",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "FirstName": {
+                        "type": "string"
+                      },
+                      "LastName": {
+                        "type": "string"
+                      },
+                      "Email": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "Username": {
+                        "type": "string"
+                      },
+                      "RoleName": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Register a new user",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "FirstName": {
+                    "type": "string"
+                  },
+                  "LastName": {
+                    "type": "string"
+                  },
+                  "Email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "Password": {
+                    "type": "string"
+                  },
+                  "Username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "FirstName",
+                  "LastName",
+                  "Email",
+                  "Password",
+                  "Username"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "400": {
+            "description": "Error in user registration"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/{userId}/threads": {
+      "get": {
+        "summary": "Get all threads created by the user",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of threads retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Account",
+      "description": "User management"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth management"
+    },
+    {
+      "name": "Roles",
+      "description": "Role management"
+    },
+    {
+      "name": "Categories",
+      "description": "Category management"
+    },
+    {
+      "name": "Grades",
+      "description": "Grade management"
+    },
+    {
+      "name": "Comments",
+      "description": "Comment management"
+    },
+    {
+      "name": "Threads",
+      "description": "Thread management"
+    },
+    {
+      "name": "User",
+      "description": "Account management"
+    }
+  ]
+}
