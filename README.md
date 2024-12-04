@@ -63,5 +63,24 @@ Sukurti platformą, kurioje pradinio ugdymo pedagogai galėtų:
 ---
 
 ## Naudotojo sąsajos projektas
-
-
+---
+### Dizainas remiantis Figma
+<table>
+  <tr>
+    <td><img src="Images/About.png" alt="About Page" width="300"></td>
+    <td><img src="Images/Forum.png" alt="Forum Page" width="300"></td>
+  </tr>
+  <tr>
+    <td><img src="Images/Home.png" alt="Home Page" width="300"></td>
+    <td><img src="Images/Sign in.png" alt="Sign In Page" width="300"></td>
+  </tr>
+  <tr>
+    <td><img src="Images/Signup1.png" alt="Signup Step 1" width="300"></td>
+    <td><img src="Images/Signup2.png" alt="Signup Step 2" width="300"></td>
+  </tr>
+  <tr>
+    <td><img src="Images/Signup3.png" alt="Signup Step 3" width="300"></td>
+  </tr>
+</table>
+---
+### Sukurtas dizainas
