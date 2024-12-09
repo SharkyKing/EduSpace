@@ -63,6 +63,9 @@ Sukurti platformą, kurioje pradinio ugdymo pedagogai galėtų:
 ---
 ## OPEN API specifikacijos failas  [Swagger API Documentation](api-docs.json)
 ---
+## Deployment diagrama
+<img src="Images/database.png" alt="Deployment diagram" width="500">
+---
 ## Naudotojo sąsajos projektas
 ---
 ### Dizainas remiantis Figma
